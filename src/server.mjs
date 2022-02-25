@@ -30,7 +30,7 @@ export const serve = (url, rootDir, cb) => {
     }
 
     if (filename.endsWith('.jsx')) {
-      res.send(await parseFile(filename))
+      res.send(await parseFile(filename, { nocache: true }))
       return
     }
 

@@ -13,8 +13,6 @@ const babelOptions = {
 
 /**
  * Import an ES6 module using its source code, rather than a URL.
- * Add a timestamp to not cache the module.
- * TODO: Add the caching as an option
  *
  * @param string
  * @return {Promise<*>}
@@ -25,12 +23,21 @@ export const importStr = (string) => {
 
 /**
  * Parse a *.jsx file and return the default export.
+ * Add a timestamp to not cache the module if defined so.
  *
  * @param {string} filename
+ * @param {{nocache?: boolean}} options
  * @return {Promise<*>}
  */
-export const parseFile = async (filename) => {
-  const { code } = await babel.transformFileAsync(filename, babelOptions)
+export const parseFile = async (filename, options = {}) => {
+  let { code } = await babel.transformFileAsync(filename, babelOptions)
+
+  // Add a timestamp to our code to not cache it
+  // TODO: Use a unique id instead of a timestamp
+  if (options.nocache) {
+    code += `;"${Date.now()}";`
+  }
+
   const { default: result } = await importStr(code)
   return renderToString(result)
 }
