@@ -13,12 +13,15 @@ const babelOptions = {
 
 /**
  * Import an ES6 module using its source code, rather than a URL.
+ * TODO: Maybe there is a way of passing source maps here?
  *
  * @param string
  * @return {Promise<*>}
  */
 export const importStr = (string) => {
-  return import(`data:text/javascript,${string}`)
+  return import(
+    `data:text/javascript;base64,${Buffer.from(string).toString('base64')}`
+  )
 }
 
 /**
