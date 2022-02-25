@@ -13,10 +13,15 @@ const babelOptions = {
 
 /**
  * Import an ES6 module using its source code, rather than a URL.
+ * Add a timestamp to not cache the module.
+ * TODO: Add the caching as an option
+ *
  * @param string
  * @return {Promise<*>}
  */
-export const importStr = (string) => import(`data:text/javascript,${string}`)
+export const importStr = (string) => {
+  return import(`data:text/javascript,${string};"${Date.now()}";`)
+}
 
 /**
  * Parse a *.jsx file and return the default export.
