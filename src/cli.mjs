@@ -14,11 +14,11 @@ const json = async (filename) => {
 }
 
 /**
- * @type {{_: [], f?: string, r?: string, version?: boolean, help?: boolean, h?: boolean, S?: string, t?: string}}
+ * @type {{_: [], f?: string, r?: string, version?: boolean, v?:boolean, help?: boolean, h?: boolean, S?: string, t?: string}}
  */
 const options = minimist(process.argv.slice(2))
 
-if (options.version) {
+if (options.version || options.v) {
   const pkg = await json('../package.json')
   console.log('JHJ', pkg.version, '(cli)')
   process.exit(0)
@@ -28,11 +28,12 @@ const help = `Usage: jhj [options] -f <file>
    jhj [options] -r <code>
    jhj [options] -S <addr>:<port> [-t docroot]
 
-    -f <file>        Parse and execute <file>
-    -h               This help
-    -r <code>        Run JSX <code> without using a default export
-    -S <addr>:<port> Run with built-in web server
-    -t <docroot>     Specify document root <docroot> for built-in web server
+  -f <file>        Parse and execute <file>
+  -h               This help
+  -r <code>        Run JSX <code> without using a default export
+  -S <addr>:<port> Run with built-in web server
+  -t <docroot>     Specify document root <docroot> for built-in web server
+  -v               Version number
 `
 
 if (options.help || options.h) {
