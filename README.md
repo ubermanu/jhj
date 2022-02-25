@@ -20,3 +20,16 @@ Render JSX content:
 Serve files:
 
     jhj -S localhost:3000
+
+## File format
+
+To render a file, it must be ES compatible and return a default export.
+
+Example:
+
+```jsx
+const world = 'World'
+export default <div className="hello">Hello {world}</div>
+```
+
+> Dynamic imports are not supported for the moment
