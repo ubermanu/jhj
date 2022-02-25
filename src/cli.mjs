@@ -1,7 +1,7 @@
 import minimist from 'minimist'
 import { parseFile, parseString } from './parser.mjs'
 import { readFile } from 'fs/promises'
-import { serve } from './serve.mjs'
+import { serve } from './server.mjs'
 
 /**
  * Read a JSON file and parse it.

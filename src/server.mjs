@@ -1,5 +1,6 @@
 import express from 'express'
 import path from 'path'
+import fs from 'fs'
 import { parseFile } from './parser.mjs'
 
 /**
@@ -15,10 +16,22 @@ export const serve = (url, rootDir, cb) => {
   const app = express()
 
   // Serve all the *.jsx files in the root directory
-  // TODO: Check the file extension before parsing
   app.get('*', async (req, res) => {
-    const filename = path.join(rootDir || process.cwd(), req.url)
-    res.send(await parseFile(filename))
+    const u = new URL(req.url, `http://${url}`)
+    const pathname = u.pathname !== '/' ? u.pathname : '/index.jsx'
+    const filename = path.join(rootDir || process.cwd(), pathname)
+
+    // Set the global `location` variable
+    global.location = u
+
+    if (!fs.existsSync(filename)) {
+      res.status(404).send('Not Found')
+      return
+    }
+
+    if (filename.endsWith('.jsx')) {
+      res.send(await parseFile(filename))
+    }
   })
 
   app.listen(port, cb)
