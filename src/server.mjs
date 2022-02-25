@@ -18,10 +18,16 @@ export const serve = (url, rootDir, cb) => {
   // Serve all the *.jsx files in the root directory
   app.get('*', async (req, res) => {
     const u = new URL(req.url, `http://${url}`)
-    const pathname = u.pathname !== '/' ? u.pathname : '/index.jsx'
+
+    // Sanitize the pathname to avoid directory traversal attacks
+    let pathname = u.pathname
+    pathname += pathname.endsWith('/') ? 'index.jsx' : ''
+    pathname += pathname.endsWith('.jsx') ? '' : '.jsx'
+
     const filename = path.join(process.cwd(), rootDir, pathname)
 
     // Set the global `location` variable
+    // TODO: Use a proper Location object
     global.location = u
 
     if (!fs.existsSync(filename)) {
