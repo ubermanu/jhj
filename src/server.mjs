@@ -15,6 +15,13 @@ export const serve = (url, rootDir) => {
   const [, port] = url.split(':')
   const app = express()
 
+  // Middleware to log requests.
+  // TODO: Add colors and status message if any
+  app.use((req, res, next) => {
+    console.log(`[${now()}] [${res.statusCode}]: ${req.method} ${req.url}`)
+    next()
+  })
+
   // Serve all the *.jsx files in the root directory
   app.get('*', async (req, res) => {
     const u = new URL(req.url, `http://${url}`)
