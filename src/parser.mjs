@@ -8,6 +8,7 @@ global.React = React
 
 const babelOptions = {
   plugins: ['@babel/plugin-transform-react-jsx'],
+  comments: false,
 }
 
 /**
