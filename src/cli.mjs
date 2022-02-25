@@ -56,7 +56,7 @@ if (options.r) {
 if (options.S) {
   const pkg = await json('../package.json')
   const now = new Date()
-  serve(options.S, options.t || null, () => {
+  serve(options.S, options.t || '', () => {
     console.log(
       `[${now}] JHJ ${pkg.version} Development Server (http://${options.S}) started`
     )

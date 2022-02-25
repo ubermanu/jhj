@@ -19,7 +19,7 @@ export const serve = (url, rootDir, cb) => {
   app.get('*', async (req, res) => {
     const u = new URL(req.url, `http://${url}`)
     const pathname = u.pathname !== '/' ? u.pathname : '/index.jsx'
-    const filename = path.join(rootDir || process.cwd(), pathname)
+    const filename = path.join(process.cwd(), rootDir, pathname)
 
     // Set the global `location` variable
     global.location = u
