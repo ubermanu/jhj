@@ -17,7 +17,7 @@ Render JSX content:
 
     jhj -r '<div className="hello">Hello World</div>'
 
-Serve files:
+Run the built-in server:
 
     jhj -S localhost:3000
 
