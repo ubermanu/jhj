@@ -31,7 +31,10 @@ export const serve = (url, rootDir, cb) => {
 
     if (filename.endsWith('.jsx')) {
       res.send(await parseFile(filename))
+      return
     }
+
+    res.sendFile(filename)
   })
 
   app.listen(port, cb)
