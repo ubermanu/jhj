@@ -9,11 +9,11 @@ global.React = React
 const babelOptions = {
   plugins: ['@babel/plugin-transform-react-jsx'],
   comments: false,
+  sourceMaps: 'inline',
 }
 
 /**
  * Import an ES6 module using its source code, rather than a URL.
- * TODO: Maybe there is a way of passing source maps here?
  *
  * @param string
  * @return {Promise<*>}
