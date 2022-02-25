@@ -21,15 +21,20 @@ Serve files:
 
     jhj -S localhost:3000
 
-## File format
+## Quick Start
 
 To render a file, it must be ES compatible and return a default export.
 
 Example:
 
 ```jsx
+// hello-world.jsx
 const world = 'World'
 export default <div className="hello">Hello {world}</div>
 ```
 
 > Dynamic imports are not supported for the moment
+
+Then you can render this file using:
+
+    jhj -f ./hello-world.jsx
