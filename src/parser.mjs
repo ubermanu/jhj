@@ -18,7 +18,7 @@ const babelOptions = {
  * @return {Promise<*>}
  */
 export const importStr = (string) => {
-  return import(`data:text/javascript,${string};"${Date.now()}";`)
+  return import(`data:text/javascript,${string}`)
 }
 
 /**
