@@ -4,6 +4,7 @@ specifiers:
   '@babel/cli': ^7.17.6
   '@babel/core': ^7.17.5
   '@babel/plugin-transform-react-jsx': ^7.17.3
+  dayjs: ^1.10.7
   express: ^4.17.3
   minimist: ^1.2.5
   prettier: ^2.5.1
@@ -15,6 +16,7 @@ dependencies:
   '@babel/cli': 7.17.6_@babel+core@7.17.5
   '@babel/core': 7.17.5
   '@babel/plugin-transform-react-jsx': 7.17.3_@babel+core@7.17.5
+  dayjs: 1.10.7
   express: 4.17.3
   minimist: 1.2.5
   react: 17.0.2
@@ -467,6 +469,10 @@ packages:
   /cookie/0.4.2:
     resolution: {integrity: sha512-aSWTXFzaKWkvHO1Ny/s+ePFpvKsPnjc551iI41v3ny/ow6tBG5Vd+FuqGNhh1LxOmVzOlGUriIlOaokOvhaStA==}
     engines: {node: '>= 0.6'}
+    dev: false
+
+  /dayjs/1.10.7:
+    resolution: {integrity: sha512-P6twpd70BcPK34K26uJ1KT3wlhpuOAPoMwJzpsIWUxHZ7wpmbdZL/hQqBDfz7hGurYSa5PhzdhDHtt319hL3ig==}
     dev: false
 
   /debug/2.6.9:

@@ -2,16 +2,16 @@ import express from 'express'
 import path from 'path'
 import fs from 'fs'
 import { parseFile } from './parser.mjs'
+import { json, now } from './util.mjs'
 
 /**
  * Run a web server on the given port.
  *
  * @param {string} url
  * @param {string} rootDir
- * @param {function} cb
  * @return {Express}
  */
-export const serve = (url, rootDir, cb) => {
+export const serve = (url, rootDir) => {
   const [, port] = url.split(':')
   const app = express()
 
@@ -24,14 +24,14 @@ export const serve = (url, rootDir, cb) => {
     pathname += pathname.endsWith('/') ? 'index.jsx' : ''
     pathname += pathname.endsWith('.jsx') ? '' : '.jsx'
 
-    const filename = path.join(process.cwd(), rootDir, pathname)
+    const filename = path.join(process.cwd(), rootDir || '', pathname)
 
     // Set the global `location` variable
     // TODO: Use a proper Location object
     global.location = u
 
     if (!fs.existsSync(filename)) {
-      res.status(404).send('Not Found')
+      res.status(404).send()
       return
     }
 
@@ -43,7 +43,12 @@ export const serve = (url, rootDir, cb) => {
     res.sendFile(filename)
   })
 
-  app.listen(port, cb)
+  app.listen(port, async () => {
+    const { version } = await json('../package.json')
+    console.log(
+      `[${now()}] JHJ ${version} Development Server (http://${url}) started`
+    )
+  })
 
   return app
 }

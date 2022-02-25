@@ -24,6 +24,7 @@
     "@babel/cli": "^7.17.6",
     "@babel/core": "^7.17.5",
     "@babel/plugin-transform-react-jsx": "^7.17.3",
+    "dayjs": "^1.10.7",
     "express": "^4.17.3",
     "minimist": "^1.2.5",
     "react": "^17.0.2",
