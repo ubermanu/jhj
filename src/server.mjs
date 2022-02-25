@@ -29,7 +29,6 @@ export const serve = (url, rootDir) => {
     // Sanitize the pathname to avoid directory traversal attacks
     let pathname = u.pathname
     pathname += pathname.endsWith('/') ? 'index.jsx' : ''
-    pathname += pathname.endsWith('.jsx') ? '' : '.jsx'
 
     const filename = path.join(process.cwd(), rootDir || '', pathname)
 
