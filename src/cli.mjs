@@ -43,4 +43,7 @@ if (options.r) {
 
 if (options.S) {
   serve(options.S, options.t)
+} else {
+  console.log(help)
+  process.exit(0)
 }
