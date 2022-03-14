@@ -3,6 +3,7 @@ import path from 'path'
 import fs from 'fs'
 import { parseFile } from './parser.mjs'
 import { json, now } from './util.mjs'
+import Location from './location.mjs'
 
 /**
  * Run a web server on the given port.
@@ -33,8 +34,8 @@ export const serve = (url, rootDir) => {
     const filename = path.join(process.cwd(), rootDir || '', pathname)
 
     // Set the global `location` variable
-    // TODO: Use a proper Location object
-    global.location = u
+    global.location = new Location()
+    global.location.assign(u)
 
     if (!fs.existsSync(filename)) {
       res.status(404).send()
