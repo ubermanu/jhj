@@ -4,6 +4,7 @@ specifiers:
   '@babel/cli': ^7.17.6
   '@babel/core': ^7.17.5
   '@babel/plugin-transform-react-jsx': ^7.17.3
+  chalk: ^5.0.1
   dayjs: ^1.10.7
   express: ^4.17.3
   minimist: ^1.2.5
@@ -16,6 +17,7 @@ dependencies:
   '@babel/cli': 7.17.6_@babel+core@7.17.5
   '@babel/core': 7.17.5
   '@babel/plugin-transform-react-jsx': 7.17.3_@babel+core@7.17.5
+  chalk: 5.0.1
   dayjs: 1.10.7
   express: 4.17.3
   minimist: 1.2.5
@@ -406,6 +408,11 @@ packages:
       ansi-styles: 3.2.1
       escape-string-regexp: 1.0.5
       supports-color: 5.5.0
+    dev: false
+
+  /chalk/5.0.1:
+    resolution: {integrity: sha512-Fo07WOYGqMfCWHOzSXOt2CxDbC6skS/jO9ynEcmpANMoPrD+W1r1K6Vx7iNm+AQmETU1Xr2t+n8nzkV9t6xh3w==}
+    engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
     dev: false
 
   /chokidar/3.5.3:

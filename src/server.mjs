@@ -1,6 +1,7 @@
 import express from 'express'
 import path from 'path'
 import fs from 'fs'
+import chalk from 'chalk'
 import { parseFile } from './parser.mjs'
 import { json, now } from './util.mjs'
 import Location from './location.mjs'
@@ -17,10 +18,11 @@ export const serve = (host, rootDir) => {
   const app = express()
 
   // Middleware to log requests.
-  // TODO: Add colors and status message if any
   app.use((req, res, next) => {
     res.on('finish', () => {
-      console.log(`[${now()}] [${res.statusCode}]: ${req.method} ${req.url}`)
+      console.log(
+        `[${now()}] [${statusColor(res.statusCode)}]: ${req.method} ${req.url}`
+      )
     })
     next()
   })
@@ -60,4 +62,18 @@ export const serve = (host, rootDir) => {
   })
 
   return app
+}
+
+/**
+ * Add color to the status code.
+ *
+ * @param statusCode
+ * @return {*}
+ */
+function statusColor(statusCode) {
+  if (statusCode >= 500) return chalk.red(statusCode)
+  if (statusCode >= 400) return chalk.red(statusCode)
+  if (statusCode >= 300) return chalk.yellow(statusCode)
+  if (statusCode >= 200) return chalk.green(statusCode)
+  return statusCode
 }
