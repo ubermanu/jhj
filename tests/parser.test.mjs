@@ -15,7 +15,7 @@ test('parse jsx string', async () => {
 })
 
 test('parse jsx file', async () => {
-  assert.ok(await parseFile('_files/example.jsx'))
+  assert.ok(await parseFile('tests/_files/example.jsx'))
 })
 
 test.run()
