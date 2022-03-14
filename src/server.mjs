@@ -19,7 +19,9 @@ export const serve = (host, rootDir) => {
   // Middleware to log requests.
   // TODO: Add colors and status message if any
   app.use((req, res, next) => {
-    console.log(`[${now()}] [${res.statusCode}]: ${req.method} ${req.url}`)
+    res.on('finish', () => {
+      console.log(`[${now()}] [${res.statusCode}]: ${req.method} ${req.url}`)
+    })
     next()
   })
 
@@ -38,7 +40,7 @@ export const serve = (host, rootDir) => {
     global.location.assign(url)
 
     if (!fs.existsSync(filename)) {
-      res.status(404).send()
+      res.sendStatus(404)
       return
     }
 
