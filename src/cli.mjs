@@ -1,4 +1,5 @@
 import minimist from 'minimist'
+import chalk from 'chalk'
 import { parseFile, parseString } from './parser.mjs'
 import { serve } from './server.mjs'
 import { json } from './util.mjs'
@@ -10,7 +11,7 @@ const options = minimist(process.argv.slice(2))
 
 if (options.version || options.v) {
   const { version } = await json('../package.json')
-  console.log('JHJ', version, '(cli)')
+  console.log('JHJ', chalk.yellow(version), '(cli)')
   process.exit(0)
 }
 

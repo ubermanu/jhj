@@ -20,9 +20,8 @@ export const serve = (host, rootDir) => {
   // Middleware to log requests.
   app.use((req, res, next) => {
     res.on('finish', () => {
-      console.log(
-        `[${now()}] [${statusColor(res.statusCode)}]: ${req.method} ${req.url}`
-      )
+      // prettier-ignore
+      console.log(`[${now()}] [${statusColor(res.statusCode)}]: ${req.method} ${req.url}`)
     })
     next()
   })
@@ -56,9 +55,8 @@ export const serve = (host, rootDir) => {
 
   app.listen(port, async () => {
     const { version } = await json('../package.json')
-    console.log(
-      `[${now()}] JHJ ${version} Development Server (http://${host}) started`
-    )
+    // prettier-ignore
+    console.log(`[${now()}] JHJ ${chalk.yellow(version)} Development Server (http://${host}) started`)
   })
 
   return app
