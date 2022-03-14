@@ -8,12 +8,12 @@ import Location from './location.mjs'
 /**
  * Run a web server on the given port.
  *
- * @param {string} url
+ * @param {string} host
  * @param {string} rootDir
  * @return {Express}
  */
-export const serve = (url, rootDir) => {
-  const [, port] = url.split(':')
+export const serve = (host, rootDir) => {
+  const [, port] = host.split(':')
   const app = express()
 
   // Middleware to log requests.
@@ -25,17 +25,17 @@ export const serve = (url, rootDir) => {
 
   // Serve all the *.jsx files in the root directory
   app.get('*', async (req, res) => {
-    const u = new URL(req.url, `http://${url}`)
+    const url = new URL(req.url, `http://${host}`)
 
     // Sanitize the pathname to avoid directory traversal attacks
-    let pathname = u.pathname
+    let pathname = url.pathname
     pathname += pathname.endsWith('/') ? 'index.jsx' : ''
 
     const filename = path.join(process.cwd(), rootDir || '', pathname)
 
     // Set the global `location` variable
     global.location = new Location()
-    global.location.assign(u)
+    global.location.assign(url)
 
     if (!fs.existsSync(filename)) {
       res.status(404).send()
@@ -53,7 +53,7 @@ export const serve = (url, rootDir) => {
   app.listen(port, async () => {
     const { version } = await json('../package.json')
     console.log(
-      `[${now()}] JHJ ${version} Development Server (http://${url}) started`
+      `[${now()}] JHJ ${version} Development Server (http://${host}) started`
     )
   })
 
