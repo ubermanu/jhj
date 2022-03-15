@@ -1,6 +1,6 @@
 <h1>JHJ 🦒</h1>
 
-Render and serve JSX files in CLI.
+A PHP-like CLI that parses and serves JSX files.
 
 ## Install
 
