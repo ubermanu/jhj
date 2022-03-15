@@ -31,4 +31,4 @@ Render the file:
 
 The following command will serve the current working directory:
 
-    jhj -s localhost:3000
+    jhj -S localhost:3000
