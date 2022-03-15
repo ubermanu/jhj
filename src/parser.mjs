@@ -25,8 +25,16 @@ export const importStr = (string) => {
 }
 
 /**
+ * Increment id counter for the cache option.
+ * See `parseFile` for more information.
+ *
+ * @type {number}
+ */
+let cacheIncrementIdCounter = 0
+
+/**
  * Parse a *.jsx file and return the default export.
- * Add a timestamp to not cache the module if defined so.
+ * Add a unique ID to not cache the module if defined so.
  *
  * @param {string} filename
  * @param {{nocache?: boolean}} options
@@ -35,10 +43,9 @@ export const importStr = (string) => {
 export const parseFile = async (filename, options = {}) => {
   let { code } = await babel.transformFileAsync(filename, babelOptions)
 
-  // Add a timestamp to our code to not cache it
-  // TODO: Use a unique id instead of a timestamp
+  // Add a unique id to our code to not cache it
   if (options.nocache) {
-    code += `;"${Date.now()}";`
+    code += `;"${cacheIncrementIdCounter++}";`
   }
 
   const { default: result } = await importStr(code)
