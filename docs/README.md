@@ -18,7 +18,8 @@ Install this package globally with your favorite package manager:
 
 Create a file named `hello-world.jsx` with the following content:
 
-```jsx
+```js
+// hello-world.jsx
 const h = "Hello"
 export default <h1>{h} World</h1>
 ```
