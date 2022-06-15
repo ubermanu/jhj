@@ -32,3 +32,19 @@ Render the file:
 The following command will serve the current working directory:
 
     jhj -S localhost:3000
+
+### Use a custom router
+
+You can specify a custom router if needed:
+
+    jhj -S localhost:3000 ./router.js
+
+It should return an express middleware function like the following:
+
+```js
+// router.js
+export default (req, res, next) => {
+    console.log(req.url)
+    next()
+}
+```
