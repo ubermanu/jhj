@@ -11,14 +11,22 @@ import Location from './location.mjs'
  *
  * @param {string} host
  * @param {string} rootDir
+ * @param {?string} routerFile
  * @return {Express}
  */
-export const serve = (host, rootDir) => {
+export const serve = async (host, rootDir, routerFile = null) => {
   const [hostname, port] = host.split(':')
   const app = express()
+  const middlewares = []
 
-  // Middleware to log requests.
-  app.use((req, res, next) => {
+  // Add user-defined router support
+  if (routerFile) {
+    const routerMod = await import(path.resolve(process.cwd(), routerFile))
+    middlewares.push(routerMod.default)
+  }
+
+  // Log requests in a fancy way
+  middlewares.push((req, res, next) => {
     res.on('finish', () => {
       // prettier-ignore
       console.log(`[${now()}] [${statusColor(res.statusCode)}]: ${req.method} ${req.url}`)
@@ -27,7 +35,7 @@ export const serve = (host, rootDir) => {
   })
 
   // Serve all the *.jsx files in the root directory
-  app.get('*', async (req, res) => {
+  middlewares.push(async (req, res) => {
     const url = new URL(req.url, `http://${hostname}:${port}`)
 
     // Sanitize the pathname to avoid directory traversal attacks
@@ -58,6 +66,8 @@ export const serve = (host, rootDir) => {
 
     res.sendFile(filename)
   })
+
+  app.use(middlewares)
 
   app.listen(+port, hostname, async () => {
     const { version } = await json('../package.json')

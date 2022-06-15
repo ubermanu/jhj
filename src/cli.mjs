@@ -17,7 +17,7 @@ if (options.version || options.v) {
 
 const help = `Usage: jhj [options] -f <file>
    jhj [options] -r <code>
-   jhj [options] -S <addr>:<port> [-t docroot]
+   jhj [options] -S <addr>:<port> [-t docroot] [router]
 
   -f <file>        Parse and execute <file>
   -h               This help
@@ -43,7 +43,7 @@ if (options.r) {
 }
 
 if (options.S) {
-  serve(options.S, options.t)
+  serve(options.S, options.t, options._[0])
 } else {
   console.log(help)
   process.exit(0)
