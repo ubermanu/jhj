@@ -45,6 +45,12 @@ export const serve = (host, rootDir) => {
       return
     }
 
+    // Add redirect support
+    // FIXME: Throws a warning because the response already has been sent
+    global.location.replace = (url) => {
+      res.write(`<script>location.replace("${url}")</script>`)
+    }
+
     if (filename.endsWith('.jsx')) {
       res.send(await parseFile(filename, { nocache: true }))
       return
