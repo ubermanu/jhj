@@ -1,6 +1,6 @@
 {
   "name": "jhj",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "description": "A CLI tool for parsing and serving JSX files",
   "type": "module",
   "main": "src/main.mjs",

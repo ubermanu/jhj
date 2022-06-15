@@ -14,7 +14,7 @@ import Location from './location.mjs'
  * @return {Express}
  */
 export const serve = (host, rootDir) => {
-  const [, port] = host.split(':')
+  const [hostname, port] = host.split(':')
   const app = express()
 
   // Middleware to log requests.
@@ -28,7 +28,7 @@ export const serve = (host, rootDir) => {
 
   // Serve all the *.jsx files in the root directory
   app.get('*', async (req, res) => {
-    const url = new URL(req.url, `http://${host}`)
+    const url = new URL(req.url, `http://${hostname}:${port}`)
 
     // Sanitize the pathname to avoid directory traversal attacks
     let pathname = url.pathname
@@ -53,10 +53,10 @@ export const serve = (host, rootDir) => {
     res.sendFile(filename)
   })
 
-  app.listen(port, async () => {
+  app.listen(+port, hostname, async () => {
     const { version } = await json('../package.json')
     // prettier-ignore
-    console.log(`[${now()}] JHJ ${chalk.yellow(version)} Development Server (http://${host}) started`)
+    console.log(`[${now()}] JHJ ${chalk.yellow(version)} Development Server (http://${hostname}:${port}) started`)
   })
 
   return app
