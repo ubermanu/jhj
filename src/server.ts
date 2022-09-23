@@ -1,10 +1,11 @@
-import express from 'express'
+import express, { Express } from 'express'
 import path from 'path'
 import fs from 'fs'
 import chalk from 'chalk'
-import { parseFile } from './parser.mjs'
-import { json, now } from './util.mjs'
-import Location from './location.mjs'
+
+import { parseFile } from './parser'
+import { json, now } from './util'
+import Location from './location'
 
 /**
  * Run a web server on the given port.
@@ -14,7 +15,11 @@ import Location from './location.mjs'
  * @param {?string} routerFile
  * @return {Express}
  */
-export const serve = async (host, rootDir, routerFile = null) => {
+export const serve = async (
+  host,
+  rootDir,
+  routerFile = null
+): Promise<Express> => {
   const [hostname, port] = host.split(':')
   const app = express()
   const middlewares = []

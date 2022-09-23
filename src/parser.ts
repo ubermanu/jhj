@@ -1,12 +1,12 @@
 import React from 'react'
-import babel from '@babel/core'
+import babel, { TransformOptions } from '@babel/core'
 import { renderToString } from 'react-dom/server.js'
 
 // Set React as global
 // So it can be called from the esmLoader
 global.React = React
 
-const babelOptions = {
+const babelOptions: TransformOptions = {
   plugins: ['@babel/plugin-transform-react-jsx'],
   comments: false,
   sourceMaps: 'inline',
@@ -33,14 +33,21 @@ export const importStr = (string) => {
 let cacheIncrementIdCounter = 0
 
 /**
+ * Options for the `parseFile` function.
+ */
+export interface ParseFileOptions {
+  nocache?: boolean
+}
+
+/**
  * Parse a *.jsx file and return the default export.
  * Add a unique ID to not cache the module if defined so.
  *
  * @param {string} filename
- * @param {{nocache?: boolean}} options
+ * @param {ParseFileOptions} options
  * @return {Promise<*>}
  */
-export const parseFile = async (filename, options = {}) => {
+export const parseFile = async (filename, options: ParseFileOptions = {}) => {
   let { code } = await babel.transformFileAsync(filename, babelOptions)
 
   // Add a unique id to our code to not cache it

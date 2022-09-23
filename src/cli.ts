@@ -1,8 +1,9 @@
 import minimist from 'minimist'
 import chalk from 'chalk'
-import { parseFile, parseString } from './parser.mjs'
-import { serve } from './server.mjs'
-import { json } from './util.mjs'
+
+import { parseFile, parseString } from './parser'
+import { json } from './util'
+import { serve } from './server'
 
 /**
  * @type {{_: [], f?: string, r?: string, version?: boolean, v?:boolean, help?: boolean, h?: boolean, S?: string, t?: string}}
@@ -10,9 +11,10 @@ import { json } from './util.mjs'
 const options = minimist(process.argv.slice(2))
 
 if (options.version || options.v) {
-  const { version } = await json('../package.json')
-  console.log('JHJ', chalk.yellow(version), '(cli)')
-  process.exit(0)
+  json('../package.json').then(({ version }) => {
+    console.log('JHJ', chalk.yellow(version), '(cli)')
+    process.exit(0)
+  })
 }
 
 const help = `Usage: jhj [options] -f <file>
@@ -33,13 +35,17 @@ if (options.help || options.h) {
 }
 
 if (options.f) {
-  console.log(await parseFile(options.f))
-  process.exit(0)
+  parseFile(options.f).then((res) => {
+    console.log(res)
+    process.exit(0)
+  })
 }
 
 if (options.r) {
-  console.log(await parseString(options.r))
-  process.exit(0)
+  parseString(options.r).then((res) => {
+    console.log(res)
+    process.exit(0)
+  })
 }
 
 if (options.S) {

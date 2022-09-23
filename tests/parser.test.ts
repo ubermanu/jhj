@@ -1,6 +1,6 @@
 import { test } from 'uvu'
 import * as assert from 'uvu/assert'
-import { importStr, parseFile, parseString } from '../src/parser.mjs'
+import { importStr, parseFile, parseString } from '../src/parser'
 
 test('normal import', async () => {
   assert.ok(await importStr('export default "hello world"'))

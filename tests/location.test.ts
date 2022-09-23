@@ -1,6 +1,6 @@
 import { test } from 'uvu'
 import * as assert from 'uvu/assert'
-import Location from '../src/location.mjs'
+import Location from '../src/location'
 
 test('assign from url string', async () => {
   const location = new Location()
